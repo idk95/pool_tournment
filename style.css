@@ -1,0 +1,21 @@
+.bg-dark-transparent {
+    background-color: rgb(52 58 64 / .75)!important;
+}
+
+.bg-pool {
+    background-image: url('img/pool.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.close{
+    margin: -.5em -.3em;
+}
+
+#person_a, #person_b{
+    height: fit-content;
+}
+
+a{
+    color: white!important;
+}
