@@ -19,3 +19,18 @@
 a{
     color: white!important;
 }
+
+.check{
+    opacity:0.5;
+	color:#000000;	
+}
+
+.hidden{
+    display: none;
+}
+
+.img-disabled {
+    cursor: auto;
+    filter: none;
+    filter: grayscale(100%) opacity(0.5);
+}

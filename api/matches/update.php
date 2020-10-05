@@ -8,44 +8,44 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
   
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/product.php';
+include_once '../objects/matches.php';
   
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
   
-// prepare product object
-$product = new Product($db);
+// prepare matches object
+$matches = new Matches($db);
   
-// get id of product to be edited
+// get id of matches to be edited
 $data = json_decode(file_get_contents("php://input"));
   
-// set ID property of product to be edited
-$product->id = $data->id;
+// set ID property of matches to be edited
+$matches->id = $data->id;
   
-// set product property values
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
+// set matches property values
+$matches->stripes_id = $data->stripes_id;
+$matches->solids_id = $data->solids_id;
+$matches->winner = $data->winner;
+$matches->absencent = $data->absencent;
   
-// update the product
-if($product->update()){
+// update the matches
+if($matches->update()){
   
     // set response code - 200 ok
     http_response_code(200);
   
     // tell the user
-    echo json_encode(array("message" => "Product was updated."));
+    echo json_encode(array("message" => "Matches was updated."));
 }
   
-// if unable to update the product, tell the user
+// if unable to update the matches, tell the user
 else{
   
     // set response code - 503 service unavailable
     http_response_code(503);
   
     // tell the user
-    echo json_encode(array("message" => "Unable to update product."));
+    echo json_encode(array("message" => "Unable to update matches."));
 }
 ?>

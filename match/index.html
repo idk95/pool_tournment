@@ -14,40 +14,41 @@
 </head>
 <body class="bg-success">
 
-    <div class="d-flex p-5 m-0">
+    <div class="d-flex p-5 m-0" id='table'>
         <div class="bg-dark-transparent text-white p-3" id="person_a">
             <h3>Person A</h3>
-            <p class="name"><b>Name: </b></p>
-            <p class="points"><b>Points: </b></p>
+            <p><b>Name: </b><span class="name"></span></p>
+            <p><b>Points: </b><span class="points"></span></p>
             <p><b>Balls Left:</b></p>
             <div class="d-flex justify-content-between flex-wrap balls">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
+                <img src="../img/1.png" alt="1">
+                <img src="../img/2.png" alt="2">
+                <img src="../img/3.png" alt="3">
+                <img src="../img/4.png" alt="4">
+                <img src="../img/5.png" alt="5">
+                <img src="../img/6.png" alt="6">
+                <img src="../img/7.png" alt="7">
+                <img src="../img/8.png" alt="8">
             </div>
         </div>
         <div class="bg-pool mx-5 text-white p-3 w-100">
             <button type="button" class="btn btn-light rounded-0 float-right" data-toggle="modal" data-target="#submitScore">Submit Score</button>
+            <div class="w-100 score_history"></div>
         </div>
         <div class="bg-dark-transparent text-white p-3" id="person_b">
             <h3>Person B</h3>
-            <p class="name"><b>Name: </b></p>
-            <p class="points"><b>Points: </b></p>
+            <p><b>Name: </b><span class="name"></span></p>
+            <p><b>Points: </b><span  class="points"></span></p>
             <p><b>Balls Left:</b></p>
             <div class="d-flex justify-content-between flex-wrap balls">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
-                <img src="../img/no_ball.png" alt="no_ball">
+                <img src="../img/8.png" alt="8">
+                <img src="../img/9.png" alt="9">
+                <img src="../img/10.png" alt="10">
+                <img src="../img/11.png" alt="11">
+                <img src="../img/12.png" alt="12">
+                <img src="../img/13.png" alt="13">
+                <img src="../img/14.png" alt="14">
+                <img src="../img/15.png" alt="15">
             </div>
         </div>
     </div>
@@ -61,14 +62,113 @@
                     </button>
                     
                     <form class="w-100" id="createForm">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="person_score" id="score_a" value="option1">
-                            <label class="form-check-label" for="score_a">1</label>
+                        <h4>Select who scored</h4>
+                        <div class="btn-group btn-group-toggle d-flex justify-content-between" data-toggle="buttons">
+                            <label class="btn btn-secondary rounded-0 mr-5" for="score_a">
+                                <input type="radio" name="person_score" id="score_a" required>
+                            </label>
+                            <label class="btn btn-secondary rounded-0 ml-5" for="score_b">
+                                <input type="radio" name="person_score" id="score_b">
+                            </label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="person_score" id="score_b" value="option2">
-                            <label class="form-check-label" for="score_b">2</label>
-                        </div>
+                        <h4 class="mt-4 mb-1">Select the balls scored</h4>
+                        <p>If no balls selected the person selected will be check as absecent!</p>
+                        <div class="d-flex justify-content-between form-group checkbox-group required">                        
+                            <div class="btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/1.png" alt="1" class="img-check">
+                                        <input type="checkbox" name="ball_1" id="balls" value="1" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/2.png" alt="2" class="img-check">
+                                        <input type="checkbox" name="ball_2" id="balls" value="2" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/3.png" alt="3" class="img-check">
+                                        <input type="checkbox" name="ball_3" id="balls" value="3" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/4.png" alt="4" class="img-check">
+                                        <input type="checkbox" name="ball_4" id="balls" value="4" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/5.png" alt="5" class="img-check">
+                                        <input type="checkbox" name="ball_5" id="balls" value="5" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/6.png" alt="6" class="img-check">
+                                        <input type="checkbox" name="ball_6" id="balls" value="6" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/7.png" alt="7" class="img-check">
+                                        <input type="checkbox" name="ball_7" id="balls" value="7" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                            </div>                   
+                            <div class="col p-0">
+                                <label class="btn mr-2">
+                                    <img src="../img/8.png" alt="8" class="img-check">
+                                    <input type="checkbox" name="ball_8" id="balls" value="8" class="hidden" autocomplete="off">
+                                </label>
+                            </div>              
+                            <div class="btn-group-toggle d-flex flex-wrap" data-toggle="buttons">
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/9.png" alt="9" class="img-check">
+                                        <input type="checkbox" name="ball_9" id="balls" value="9" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/10.png" alt="10" class="img-check">
+                                        <input type="checkbox" name="ball_10" id="balls" value="10" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/11.png" alt="11" class="img-check">
+                                        <input type="checkbox" name="ball_11" id="balls" value="11" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/12.png" alt="12" class="img-check">
+                                        <input type="checkbox" name="ball_12" id="balls" value="12" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/13.png" alt="13" class="img-check">
+                                        <input type="checkbox" name="ball_13" id="balls" value="13" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/14.png" alt="14" class="img-check">
+                                        <input type="checkbox" name="ball_14" id="balls" value="14" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                                <div class="col p-0">
+                                    <label class="btn p-0">
+                                        <img src="../img/15.png" alt="15" class="img-check">
+                                        <input type="checkbox" name="ball_15 id="balls" value="15" class="hidden" autocomplete="off">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>                        
                         <input type="submit" value="Create" class="btn btn-primary mb-2 rounded-0">
                     </form>
                 </div>

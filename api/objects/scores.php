@@ -26,23 +26,34 @@ class Scores{
         return $stmt;
     }
 
-    // create people
+    // create scores
     function create(){
 
-        $ids = array();
-
-        foreach ($this->name as $value) {
-            $query = "INSERT INTO $this->table_name SET name=:name";
+        $query = "INSERT INTO $this->table_name SET matches_id=:matches_id, people_id=:people_id, ball=:ball";
         
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":name", $value);
-        
-            $stmt->execute();
-            array_push($ids, $this->conn->lastInsertId());
-        }
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":matches_id", $this->matches_id);
+        $stmt->bindParam(":people_id", $this->people_id);
+        $stmt->bindParam(":ball", $this->ball);
     
-        return $ids;
+        if($stmt->execute()){
+            return true;
+        }
+        return false;
         
+    }
+
+    // get score
+    function getScore(){
+        
+        $query = "SELECT matches_id, people_id, ball FROM $this->table_name WHERE matches_id=:matches_id";
+        $stmt = $this->conn->prepare( $query );
+        
+        $stmt->bindParam(":matches_id", $this->matches_id);
+        
+        $stmt->execute();
+
+        return $stmt;
     }
 }
 ?>

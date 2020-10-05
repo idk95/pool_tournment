@@ -46,5 +46,24 @@ class People{
         return $ids;
         
     }
+
+    function update(){
+        $query = "UPDATE $this->table_name SET points = :points WHERE id = :id";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+    
+        // bind new values
+        $stmt->bindParam(':points', $this->points);
+        $stmt->bindParam(':id', $this->id);
+    
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+    
+        return false;
+        
+    }
 }
 ?>

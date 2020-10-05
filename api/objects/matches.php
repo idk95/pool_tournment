@@ -61,32 +61,58 @@ class Matches{
     // update the matches
     function update(){
     
-        // update query
-        $query = "UPDATE $this->table_name SET name = :name, price = :price, description = :description, category_id = :category_id WHERE id = :id";
+        if ($this->absencent != null) {
+            $query = "UPDATE $this->table_name SET winner = :winner, absencent=:absencent WHERE id = :id";
     
-        // prepare query statement
-        $stmt = $this->conn->prepare($query);
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // bind new values
+            $stmt->bindParam(':winner', $this->winner);
+            $stmt->bindParam(':absencent', $this->absencent);
+            $stmt->bindParam(':id', $this->id);
+        
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+        
+            return false;
+        }else if ($this->winner != null) {
+            $query = "UPDATE $this->table_name SET winner = :winner WHERE id = :id";
     
-        // sanitize
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->price=htmlspecialchars(strip_tags($this->price));
-        $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->category_id=htmlspecialchars(strip_tags($this->category_id));
-        $this->id=htmlspecialchars(strip_tags($this->id));
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // bind new values
+            $stmt->bindParam(':winner', $this->winner);
+            $stmt->bindParam(':id', $this->id);
+        
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+        
+            return false;
+        } else{
+            $query = "UPDATE $this->table_name SET solids_id = :solids_id, stripes_id = :stripes_id WHERE id = :id";
     
-        // bind new values
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':price', $this->price);
-        $stmt->bindParam(':description', $this->description);
-        $stmt->bindParam(':category_id', $this->category_id);
-        $stmt->bindParam(':id', $this->id);
-    
-        // execute the query
-        if($stmt->execute()){
-            return true;
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // bind new values
+            $stmt->bindParam(':solids_id', $this->solids_id);
+            $stmt->bindParam(':stripes_id', $this->stripes_id);
+            $stmt->bindParam(':id', $this->id);
+        
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+        
+            return false;
         }
-    
-        return false;
+        
     }
 
     // search matches
