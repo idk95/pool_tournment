@@ -54,6 +54,9 @@ $(document).ready( function(){
                 <td><a href="person/index.html?id='+element.stripes_id+'">'+element.stripes_name+'</a></td>\
                 </tr>');
             });
+
+            if (data.winner != null) {
+            }
         });
     }
 });
