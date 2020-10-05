@@ -68,42 +68,6 @@ class Matches{
 
     // update the matches
     function update(){
-
-        if ($this->solids_left != null) {
-            $query = "UPDATE $this->table_name SET solids_left=:solids_left WHERE id = :id";
-    
-            // prepare query statement
-            $stmt = $this->conn->prepare($query);
-        
-            // bind new values
-            $stmt->bindParam(':solids_left', $this->solids_left);
-            $stmt->bindParam(':id', $this->id);
-        
-            // execute the query
-            if($stmt->execute()){
-                return true;
-            }
-        
-            return false;
-        }
-
-        if ($this->stripes_left != null) {
-            $query = "UPDATE $this->table_name SET stripes_left=:stripe_left WHERE id = :id";
-    
-            // prepare query statement
-            $stmt = $this->conn->prepare($query);
-        
-            // bind new values
-            $stmt->bindParam(':stripes_left', $this->stripes_left);
-            $stmt->bindParam(':id', $this->id);
-        
-            // execute the query
-            if($stmt->execute()){
-                return true;
-            }
-        
-            return false;
-        }
     
         if ($this->absencent != null) {
             $query = "UPDATE $this->table_name SET winner = :winner, absencent=:absencent WHERE id = :id";
@@ -147,6 +111,42 @@ class Matches{
             // bind new values
             $stmt->bindParam(':solids_id', $this->solids_id);
             $stmt->bindParam(':stripes_id', $this->stripes_id);
+            $stmt->bindParam(':id', $this->id);
+        
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+        
+            return false;
+        }
+
+        if ($this->solids_left != null && $this->stripes_left == null) {
+            $query = "UPDATE $this->table_name SET solids_left=:solids_left WHERE id = :id";
+    
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // bind new values
+            $stmt->bindParam(':solids_left', $this->solids_left);
+            $stmt->bindParam(':id', $this->id);
+        
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+        
+            return false;
+        }
+
+        if ($this->stripes_left != null && $this->solids_left != null) {
+            $query = "UPDATE $this->table_name SET stripes_left=:stripe_left WHERE id = :id";
+    
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // bind new values
+            $stmt->bindParam(':stripes_left', $this->stripes_left);
             $stmt->bindParam(':id', $this->id);
         
             // execute the query

@@ -6,6 +6,7 @@ $(document).ready( function(){
     $('#date').val(date);
 
     $('#createForm').submit( function(e) {
+        e.preventDefault();
 
         var arr = {"person":[]};
         var input_person = $('input[name=person]').serializeArray();
@@ -29,7 +30,7 @@ $(document).ready( function(){
             console.log(jqXHR);
             console.log(errorThrown);
         });
-
+        location.reload(true);
     });
 
     function read_ranks() {
@@ -54,9 +55,6 @@ $(document).ready( function(){
                 <td><a href="person/index.html?id='+element.stripes_id+'">'+element.stripes_name+'</a></td>\
                 </tr>');
             });
-
-            if (data.winner != null) {
-            }
         });
     }
 });
