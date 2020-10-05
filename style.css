@@ -34,3 +34,12 @@ a{
     filter: none;
     filter: grayscale(100%) opacity(0.5);
 }
+
+.score_history{
+    overflow-y: auto;
+    height: 24em;
+}
+
+#back_button{
+    margin-top: -12em;
+}

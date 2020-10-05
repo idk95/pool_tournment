@@ -26,6 +26,8 @@ $matches->id = $data->id;
 // set matches property values
 $matches->stripes_id = $data->stripes_id;
 $matches->solids_id = $data->solids_id;
+$matches->stripes_left = $data->stripes_left;
+$matches->solids_left = $data->solids_left;
 $matches->winner = $data->winner;
 $matches->absencent = $data->absencent;
   

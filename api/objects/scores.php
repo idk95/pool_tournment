@@ -46,7 +46,7 @@ class Scores{
     // get score
     function getScore(){
         
-        $query = "SELECT matches_id, people_id, ball FROM $this->table_name WHERE matches_id=:matches_id";
+        $query = "SELECT matches_id, people_id, ball, name FROM $this->table_name, people WHERE matches_id=:matches_id AND people.id = scores.people_id";
         $stmt = $this->conn->prepare( $query );
         
         $stmt->bindParam(":matches_id", $this->matches_id);

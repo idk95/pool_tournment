@@ -18,6 +18,8 @@ $(document).ready( function(){
 
         var person_hash = $('.id_'+person_id).closest('div').attr('id');
         var person_balls = $('#'+person_hash+' .img-disabled').length;
+        var other_hash = $('.id_'+other_id).closest('div').attr('id');
+        var other_balls = $('#'+other_hash+' .img-disabled').length;
 
         $('div.checkbox-group.required .check').each(function(){
             var ball = $(this).attr('alt');
@@ -48,6 +50,20 @@ $(document).ready( function(){
                 }
             }
 
+            if ($('#person_a .points').hasClass('id_'+person_id)) {
+                if (ball < 8 ) {
+                    $.post( '../api/matches/update.php', JSON.stringify({"id":id,"solids_left":7-parseInt(person_balls)-1}));
+                } else{
+                    $.post( '../api/matches/update.php', JSON.stringify({"id":id,"stripes_left":7-parseInt(other_balls)-1}));
+                }
+            } else{
+                if (ball < 8 ) {
+                    $.post( '../api/matches/update.php', JSON.stringify({"id":id,"solids_left":7-parseInt(other_balls)-1}));
+                } else{
+                    $.post( '../api/matches/update.php', JSON.stringify({"id":id,"stripes_left":7-parseInt(person_balls)-1}));
+                }
+            }
+
             $.post( '../api/scores/create.php', JSON.stringify({"match_id":id,"people_id":person_id,"ball":ball}));
         });
 
@@ -74,6 +90,12 @@ $(document).ready( function(){
 
             if (data.winner != null) {
                 $('#table button').hide();
+                if (data.winner == data.solids_id) {
+                    $('.bg-pool h3').text(data.solids_name+' is the winner!!!');    
+                } else{
+                    $('.bg-pool h3').text(data.stripes_name+' is the winner!!!');    
+                }
+                
             }
         });
     }
@@ -85,7 +107,9 @@ $(document).ready( function(){
                 $('#createForm img[alt="'+element.ball+'"]').removeClass( "img-check" ).addClass('img-disabled');
                 $('#table img[alt="'+element.ball+'"]').addClass('img-disabled');
 
-                $('.score_history').append('<p></p>')
+                $('.score_history').append('<p>\
+                <b>'+element.name+'</b> score the ball <b>'+element.ball+'</b>\
+                </p>');
             });
         });
     }

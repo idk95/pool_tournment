@@ -31,7 +31,8 @@ if($num>0){
         $score_item = array(
             "matches_id" =>  $matches_id,
             "people_id" => $people_id,
-            "ball" => $ball
+            "ball" => $ball,
+            "name" => $name
         );
   
         array_push($scores_arr["records"], $score_item);
