@@ -27,12 +27,8 @@ $(document).ready( function(){
             if(total_balls == 0){
                 if (ball > 8) {
                     $.post( '../api/matches/update.php', JSON.stringify({"stripes_id":person_id,"id":id, "solids_id":other_id}));
-                    $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+person_id).text())+3,"id":person_id}));
-                    $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+1,"id":other_id}));
                 } else if (ball < 8) {
                     $.post( '../api/matches/update.php', JSON.stringify({"stripes_id":other_id,"id":id, "solids_id":person_id}));
-                    $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+3,"id":other_id}));
-                    $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+person_id).text())+1,"id":person_id}));
                 } else {
                     $.post( '../api/matches/update.php', JSON.stringify({"winner":other_id,"id":id}));
                     $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+3,"id":other_id}));
