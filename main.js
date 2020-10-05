@@ -48,10 +48,10 @@ $(document).ready( function(){
             data.records.forEach(element => {
                 $('#matches tbody').append('<tr>\
                 <td><a href="match/index.html?id='+element.id+'">'+element.date+'</a></td>\
-                <td>'+element.solids_name+'</td>\
+                <td><a href="person/index.html?id='+element.solids_id+'">'+element.solids_name+'</a></td>\
                 <td class="text-right">'+element.solids_left+'</td><td>-</td>\
                 <td>'+element.stripes_left+'</td>\
-                <td>'+element.stripes_name+'</td>\
+                <td><a href="person/index.html?id='+element.stripes_id+'">'+element.stripes_name+'</a></td>\
                 </tr>');
             });
         });

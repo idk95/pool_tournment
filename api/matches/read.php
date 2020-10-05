@@ -10,6 +10,8 @@ $db = $database->getConnection();
   
 $matches = new Matches($db);
 
+$matches->solids_id = isset($_GET['person_id']);
+
 $stmt = $matches->read();
 $num = $stmt->rowCount();
   

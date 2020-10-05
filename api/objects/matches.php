@@ -20,10 +20,18 @@ class Matches{
     }
 
     function read(){
-    
+        
         $query = "SELECT m.id, m.solids_id, p1.name as 'solids_name', m.stripes_id, p2.name as 'stripes_name', m.date, m.winner, m.absencent, m.solids_left, m.stripes_left FROM $this->table_name m LEFT JOIN people p1 ON p1.id = m.solids_id LEFT JOIN people p2 ON p2.id = m.stripes_id";
-    
+
         $stmt = $this->conn->prepare($query);
+
+        if($this->solids_id!=null){
+            $query = "SELECT m.id, m.solids_id, p1.name as 'solids_name', m.stripes_id, p2.name as 'stripes_name', m.date, m.winner, m.absencent, m.solids_left, m.stripes_left FROM $this->table_name m LEFT JOIN people p1 ON p1.id = m.solids_id LEFT JOIN people p2 ON p2.id = m.stripes_id WHERE m.solids_id = :solids_id OR m.stripes_id = :solids_id";
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":solids_id", $this->solids_id);
+        }
+        
         $stmt->execute();
     
         return $stmt;

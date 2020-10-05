@@ -16,13 +16,15 @@ $db = $database->getConnection();
 $people = new People($db);
 
 $people->id = isset($_GET['id']) ? $_GET['id'] : die();
-$people->readOne();
-  
-if($people->name!=null){
+$row = $people->readOne();
+
+if($row){
+    extract($row);
     $result = array(
-        "id" =>  $people->id,
-        "name" => $people->name,
-        "points" => $people->points
+        "id" =>  $id,
+        "name" => $name,
+        "points" => $points,
+        "balls" => $balls
     );
     
     http_response_code(200);

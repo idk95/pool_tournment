@@ -9,6 +9,7 @@ class People{
     public $id;
     public $name;
     public $points;
+    public $balls;
   
     public function __construct($db){
         $this->conn = $db;
@@ -64,6 +65,23 @@ class People{
     
         return false;
         
+    }
+
+    function readOne(){
+        
+        $query = "SELECT p.id, p.name, p.points, m.solids_left as 'balls' FROM $this->table_name p INNER JOIN matches m ON p.id = m.solids_id WHERE p.id=:id
+        UNION 
+        SELECT p.id, p.name, p.points, m.stripes_left as 'balls' FROM $this->table_name p INNER JOIN matches m ON p.id = m.stripes_id
+        WHERE p.id = :id";
+
+        $stmt = $this->conn->prepare( $query );
+        
+        $stmt->bindParam(":id", $this->id);
+        
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
 }
 ?>
