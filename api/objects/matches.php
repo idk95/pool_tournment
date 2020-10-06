@@ -141,7 +141,7 @@ class Matches{
         }
 
         if ($this->stripes_left != null) {
-            $query = "UPDATE $this->table_name SET stripes_left=:stripe_left WHERE id = :id";
+            $query = "UPDATE $this->table_name SET stripes_left=:stripes_left WHERE id = :id";
     
             // prepare query statement
             $stmt = $this->conn->prepare($query);

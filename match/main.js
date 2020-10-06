@@ -9,9 +9,21 @@ $(document).ready( function(){
         }
     });
 
-    var total_balls = $('#table .img-disabled').length;
+    var order_balls_check = [];
+    $("[type=checkbox]").click(function() {
+        var idx = order_balls_check.indexOf($(this).val());
+        
+        if (idx !== -1) {
+            order_balls_check.splice(idx, 1);
+        } else{
+            order_balls_check.push($(this).val());
+        }
+    });
+    
     $('#submitScore').submit( function(e) {
         e.preventDefault();
+
+        var total_balls = $('#table .img-disabled').length;
 
         var person_id = $('input[name="person_score"]:checked').val();
         var other_id = $('input[name="person_score"]:not(:checked)').val();
@@ -21,10 +33,9 @@ $(document).ready( function(){
         var other_hash = $('.id_'+other_id).closest('div').attr('id');
         var other_balls = $('#'+other_hash+' .img-disabled').length;
 
-        $('div.checkbox-group.required .check').each(function(){
-            var ball = $(this).attr('alt');
+        order_balls_check.forEach(ball => {
 
-            if(total_balls == 0){
+            if(total_balls == 0 && order_balls_check.indexOf(ball) == 0){
                 if (ball > 8) {
                     $.post( '../api/matches/update.php', JSON.stringify({"stripes_id":person_id,"id":id, "solids_id":other_id}));
                 } else if (ball < 8) {
@@ -38,9 +49,11 @@ $(document).ready( function(){
 
             if (ball == 8 ) {
                 if (person_balls == 7) {
+                    $.post( '../api/matches/update.php', JSON.stringify({"winner":person_id,"id":id}));
                     $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+person_id).text())+3,"id":person_id}));
                     $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+1,"id":other_id}));
                 } else{
+                    $.post( '../api/matches/update.php', JSON.stringify({"winner":other_id,"id":id}));
                     $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+3,"id":other_id}));
                     $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+person_id).text())+1,"id":person_id}));
                 }
@@ -52,14 +65,13 @@ $(document).ready( function(){
                 } else{
                     $.post( '../api/matches/update.php', JSON.stringify({"id":id,"stripes_left":7-parseInt(other_balls)-1}));
                 }
-            } else{
+            } else if ($('#person_b .points').hasClass('id_'+person_id)) {
                 if (ball < 8 ) {
                     $.post( '../api/matches/update.php', JSON.stringify({"id":id,"solids_left":7-parseInt(other_balls)-1}));
                 } else{
                     $.post( '../api/matches/update.php', JSON.stringify({"id":id,"stripes_left":7-parseInt(person_balls)-1}));
                 }
             }
-
             $.post( '../api/scores/create.php', JSON.stringify({"match_id":id,"people_id":person_id,"ball":ball}));
         });
 
@@ -67,7 +79,6 @@ $(document).ready( function(){
             $.post( '../api/matches/update.php', JSON.stringify({"absencent":person_id,"id":id,"winner":other_id}));
             $.post( '../api/people/update.php', JSON.stringify({"points":parseInt($('.id_'+other_id).text())+3,"id":other_id}));
         }
-    
         location.reload(true);
     });
 
