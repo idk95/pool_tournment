@@ -102,7 +102,8 @@ class Matches{
             }
         
             return false;
-        } else{
+        } else if($this->solids_id != null && $this->stripes_id != null){
+
             $query = "UPDATE $this->table_name SET solids_id = :solids_id, stripes_id = :stripes_id WHERE id = :id";
     
             // prepare query statement
@@ -121,7 +122,7 @@ class Matches{
             return false;
         }
 
-        if ($this->solids_left != null && $this->stripes_left == null) {
+        if ($this->solids_left != null) {
             $query = "UPDATE $this->table_name SET solids_left=:solids_left WHERE id = :id";
     
             // prepare query statement
@@ -130,7 +131,7 @@ class Matches{
             // bind new values
             $stmt->bindParam(':solids_left', $this->solids_left);
             $stmt->bindParam(':id', $this->id);
-        
+    
             // execute the query
             if($stmt->execute()){
                 return true;
@@ -139,7 +140,7 @@ class Matches{
             return false;
         }
 
-        if ($this->stripes_left != null && $this->solids_left != null) {
+        if ($this->stripes_left != null) {
             $query = "UPDATE $this->table_name SET stripes_left=:stripe_left WHERE id = :id";
     
             // prepare query statement
